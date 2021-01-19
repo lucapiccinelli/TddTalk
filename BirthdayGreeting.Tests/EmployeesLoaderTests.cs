@@ -25,4 +25,12 @@ namespace BirthdayGreetings.Tests
             Assert.Equal(expectedEmployee, employees);
         }
     }
+
+    public class EmployeesLoader
+    {
+        public static List<Employee> Load(string filename)
+        {
+            return new List<Employee>();
+        }
+    }
 }
