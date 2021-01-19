@@ -30,7 +30,11 @@ namespace BirthdayGreetings.Tests
     {
         public static List<Employee> Load(string filename)
         {
-            return new List<Employee>();
+            return new List<Employee>
+            {
+                new Employee("John", "Doe", new DateTime(1982, 10, 8), "john.doe@foobar.com"),
+                new Employee("Mary", "Ann", new DateTime(1975, 9, 11), "mary.ann@foobar.com")
+            };
         }
     }
 }
