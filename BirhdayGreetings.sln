@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings", "BirhdayGreetings\BirthdayGreetings.csproj", "{C8E58F7D-D0FE-424D-A624-42FCAC9E1EFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Tests", "BirthdayGreeting.Tests\BirthdayGreetings.Tests.csproj", "{2DC5E453-3022-41C3-88E0-3C016117E590}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8E58F7D-D0FE-424D-A624-42FCAC9E1EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E58F7D-D0FE-424D-A624-42FCAC9E1EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E58F7D-D0FE-424D-A624-42FCAC9E1EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E58F7D-D0FE-424D-A624-42FCAC9E1EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DC5E453-3022-41C3-88E0-3C016117E590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC5E453-3022-41C3-88E0-3C016117E590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC5E453-3022-41C3-88E0-3C016117E590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC5E453-3022-41C3-88E0-3C016117E590}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D07437A6-84BF-49F1-8745-AA7BA2B628D1}
+	EndGlobalSection
+EndGlobal
