@@ -14,23 +14,10 @@ namespace BirthdayGreetings
             string[] employeeLines = SkipHeader(lines);
 
             return employeeLines
-                .Select(ParseLineToEmployee)
+                .Select(EmployeesLineParser.ParseLineToEmployee)
                 .ToList();
         }
 
-        private static Employee ParseLineToEmployee(string employeeLine)
-        {
-            string[] employeeTokens = employeeLine.Split(",").Select(s => s.Trim()).ToArray();
-            return new Employee(
-                employeeTokens[1],
-                employeeTokens[0],
-                DateTime.ParseExact(employeeTokens[2], "yyyy/MM/dd", CultureInfo.InvariantCulture),
-                employeeTokens[3]);
-        }
-
-        private static string[] SkipHeader(string[] lines)
-        {
-            return lines.Skip(1).ToArray();
-        }
+        private static string[] SkipHeader(string[] lines) => lines.Skip(1).ToArray();
     }
 }
