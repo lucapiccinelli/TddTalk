@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using Xunit;
 
 namespace BirthdayGreetings.Tests
@@ -26,24 +23,6 @@ namespace BirthdayGreetings.Tests
             };
 
             Assert.Equal(expectedEmployee, employees);
-        }
-    }
-
-    public class EmployeesLoader
-    {
-        public static List<Employee> Load(string filename)
-        {
-            string[] lines = File.ReadAllLines(filename);
-            string[] employeeLines = lines.Skip(1).ToArray();
-
-            return employeeLines
-                .Select(employeeLine => employeeLine.Split(",").Select(s => s.Trim()).ToArray())
-                .Select(employeeTokens => new Employee(
-                    employeeTokens[1],
-                    employeeTokens[0],
-                    DateTime.ParseExact(employeeTokens[2], "yyyy/MM/dd", CultureInfo.InvariantCulture),
-                    employeeTokens[3]))
-                .ToList();
         }
     }
 }
