@@ -22,5 +22,14 @@ namespace BirthdayGreetings.Tests
             Assert.Equal(expectedEmployee, employee);
         }
 
+        [Theory]
+        [InlineData("Doe, John, john.doe@foobar.com")]
+        [InlineData("Doe, John,, john.doe@foobar.com")]
+        [InlineData("Doe, John, banana, john.doe@foobar.com")]
+        public void Parsing_aLine_NotWellFormatted_ThrowsAnArgumentException(string employeeLine)
+        {
+            Assert.Throws<ArgumentException>(() => EmployeesLineParser.ParseLineToEmployee(employeeLine));
+        }
+
     }
 }
