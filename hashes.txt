@@ -1,0 +1,7 @@
+* b848f78 Luca Piccinelli test formatting errors  (HEAD -> main, origin/main)
+* 77212be Luca Piccinelli moved out line parsing 
+* a493a86 Luca Piccinelli first refactoring step 
+* f9f266a Luca Piccinelli real implementation 
+* 965b532 Luca Piccinelli first green implementation 
+* df56727 Luca Piccinelli red implementation 
+* 519bf63 Luca Piccinelli first not compiling test 
