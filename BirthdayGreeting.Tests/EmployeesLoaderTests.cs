@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using BirthdayGreetings.Exceptions;
 using Xunit;
 
 namespace BirthdayGreetings.Tests
 {
-    // Happy path
-    // File non esistente
-    // Formato errato del file
-
     public class EmployeesLoaderTests
     {
         [Fact]
@@ -23,6 +20,16 @@ namespace BirthdayGreetings.Tests
             };
 
             Assert.Equal(expectedEmployee, employees);
+        }
+
+        [Fact]
+        public void AFile_InTheWrongFormat_ShouldThrow_AndTheException_ShouldContainTheList_OfErrors()
+        {
+            string filename = @"Resources\bad_format_employees.txt";
+
+            var exception =  Assert.Throws<BadFormatException>(() => EmployeesLoader.Load(filename));
+            Assert.Equal(2, exception.Errors.Count);
+            Assert.Equal(1, exception.Errors[0].LineNumber);
         }
     }
 }
