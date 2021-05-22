@@ -4,22 +4,52 @@ namespace BirthdayGreetings
 {
     public class Employee
     {
+        private readonly DateTime _leapYearDateOfBirth;
         public string Email { get; }
-        public string Firstname { get; }
-        public string Lastname { get; }
+        public Name Name { get; }
         public DateTime DateOfBirth { get; }
 
         public Employee(string firstname, string lastname, DateTime dateOfBirth, string email)
         {
             Email = email;
-            Firstname = firstname;
-            Lastname = lastname;
+            Name = new Name(firstname, lastname);
             DateOfBirth = dateOfBirth;
+            _leapYearDateOfBirth = dateOfBirth;
+
+
+            if (DateOfBirth.Day == 29 && DateOfBirth.Month == 2)
+            {
+                _leapYearDateOfBirth = new DateTime(dateOfBirth.Year, dateOfBirth.Month, 28);
+            }
         }
+
+        public Employee(Name name, in DateTime birthday, string email) : this(name.Firstname, name.Lastname, birthday, email)
+        {
+        }
+
+        public bool IsBirthday(DateTime today)
+        {
+            if (today.Day != 28 || today.Month != 2 || DateTime.IsLeapYear(today.Year))
+            {
+                return MatchDate(today, DateOfBirth);
+            }
+
+            return MatchDate(today, _leapYearDateOfBirth);
+        }
+
+        private bool MatchDate(DateTime today, DateTime dateOfBirth) =>
+            dateOfBirth.Date.Month == today.Date.Month &&
+            dateOfBirth.Date.Day == today.Date.Day &&
+            dateOfBirth.Date.Year <= today.Year;
 
         protected bool Equals(Employee other)
         {
-            return Email == other.Email && Firstname == other.Firstname && Lastname == other.Lastname && DateOfBirth.Equals(other.DateOfBirth);
+            return Email == other.Email && Equals(Name, other.Name) && DateOfBirth.Equals(other.DateOfBirth);
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(Email)}: {Email}, {nameof(Name)}: {Name}, {nameof(DateOfBirth)}: {DateOfBirth}";
         }
 
         public override bool Equals(object obj)
@@ -32,7 +62,7 @@ namespace BirthdayGreetings
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Email, Firstname, Lastname, DateOfBirth);
+            return HashCode.Combine(Email, Name, DateOfBirth);
         }
     }
 }

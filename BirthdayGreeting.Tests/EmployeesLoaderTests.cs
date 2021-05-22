@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BirthdayGreetings.Exceptions;
+using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 
 namespace BirthdayGreetings.Tests

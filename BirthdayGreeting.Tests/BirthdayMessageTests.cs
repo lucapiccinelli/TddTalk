@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BirthdayGreetings;
+using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 
 namespace BirthdayGreetings.Tests
@@ -10,9 +11,9 @@ namespace BirthdayGreetings.Tests
     {
 
         [Fact]
-        public void Test()
+        public void CreateBirthdayMessages()
         {
-            DateTime today = new DateTime(16, 03, 1985);
+            DateTime today = new DateTime(1985, 03, 16);
             var john = TestEmployees.John.WasBorn(today);
 
             List<Employee> employees = new List<Employee>
@@ -25,26 +26,8 @@ namespace BirthdayGreetings.Tests
                 new BirthdayMessage(john)
             };
 
-            Assert.Equal(expectedMessages, BirthdayMessages.Of(employees));
+            Assert.Equal(expectedMessages, BirthdayMessages.Of(employees, today));
         }
 
-    }
-
-    public class BirthdayMessage
-    {
-        private readonly Employee _employee;
-
-        public BirthdayMessage(Employee employee)
-        {
-            _employee = employee;
-        }
-    }
-
-    public static class BirthdayMessages
-    {
-        public static List<BirthdayMessage> Of(List<Employee> employees)
-        {
-            return new List<BirthdayMessage>();
-        }
     }
 }
