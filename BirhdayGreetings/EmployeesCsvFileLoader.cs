@@ -7,7 +7,7 @@ using BirthdayGreetings.Exceptions;
 
 namespace BirthdayGreetings
 {
-    public static class EmployeesLoader
+    public static class EmployeesCsvFileLoader
     {
         public static List<Employee> Load(string filename)
         {

@@ -12,7 +12,7 @@ namespace BirthdayGreetings.Tests
         public void CanLoadEmployees_FromFile()
         {
             string filename = @"Resources\employees.txt";
-            List<Employee> employees = EmployeesLoader.Load(filename);
+            List<Employee> employees = EmployeesCsvFileLoader.Load(filename);
 
             List<Employee> expectedEmployee = new List<Employee>
             {
@@ -27,7 +27,7 @@ namespace BirthdayGreetings.Tests
         {
             string filename = @"Resources\bad_format_employees.txt";
 
-            var exception =  Assert.Throws<BadFormatException>(() => EmployeesLoader.Load(filename));
+            var exception =  Assert.Throws<BadFormatException>(() => EmployeesCsvFileLoader.Load(filename));
             Assert.Equal(2, exception.Errors.Count);
             Assert.Equal(1, exception.Errors[0].LineNumber);
         }

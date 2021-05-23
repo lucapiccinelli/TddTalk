@@ -14,9 +14,15 @@ namespace BirthdayGreetings
 
         public static List<BirthdayMessage> Of(List<Employee> employees) => Of(employees, DateTime.Now);
 
-        public static List<BirthdayMessage> FromFile(string filename, DateTime today)
+        public static List<BirthdayMessage> FromCsvFile(string filename, DateTime today)
         {
             List<Employee> employees = EmployeesCsvFileLoader.Load(filename);
+            return BirthdayMessages.Of(employees, today);
+        }
+
+        public static List<BirthdayMessage> FromSqlLiteDb(string filename, DateTime today)
+        {
+            List<Employee> employees = EmployeesSqlLiteLoader.Load(filename);
             return BirthdayMessages.Of(employees, today);
         }
     }
