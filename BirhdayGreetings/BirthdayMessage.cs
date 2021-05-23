@@ -2,16 +2,16 @@
 {
     public class BirthdayMessage
     {
-        private readonly Employee _employee;
+        private readonly Name _name;
 
-        public BirthdayMessage(Employee employee)
+        public BirthdayMessage(Name name)
         {
-            _employee = employee;
+            _name = name;
         }
 
         protected bool Equals(BirthdayMessage other)
         {
-            return Equals(_employee, other._employee);
+            return Equals(_name, other._name);
         }
 
         public override bool Equals(object obj)
@@ -24,12 +24,12 @@
 
         public override int GetHashCode()
         {
-            return (_employee != null ? _employee.GetHashCode() : 0);
+            return (_name != null ? _name.GetHashCode() : 0);
         }
 
         public override string ToString()
         {
-            return $"{nameof(_employee)}: {_employee}";
+            return $"{nameof(_name)}: {_name}";
         }
     }
 }

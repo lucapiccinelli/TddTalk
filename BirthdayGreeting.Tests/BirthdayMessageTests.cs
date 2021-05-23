@@ -23,7 +23,7 @@ namespace BirthdayGreetings.Tests
             
             List<BirthdayMessage> expectedMessages = new List<BirthdayMessage>
             {
-                new BirthdayMessage(john)
+                new BirthdayMessage(john.Name)
             };
 
             Assert.Equal(expectedMessages, BirthdayMessages.Of(employees, today));
