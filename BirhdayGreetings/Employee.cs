@@ -5,13 +5,13 @@ namespace BirthdayGreetings
     public class Employee
     {
         private readonly DateTime _leapYearDateOfBirth;
-        public string Email { get; }
+        public Email Email { get; }
         public Name Name { get; }
         public DateTime DateOfBirth { get; }
 
         public Employee(string firstname, string lastname, DateTime dateOfBirth, string email)
         {
-            Email = email;
+            Email = Email.Of(email);
             Name = new Name(firstname, lastname);
             DateOfBirth = dateOfBirth;
             _leapYearDateOfBirth = dateOfBirth;
@@ -24,6 +24,10 @@ namespace BirthdayGreetings
         }
 
         public Employee(Name name, in DateTime birthday, string email) : this(name.Firstname, name.Lastname, birthday, email)
+        {
+        }
+
+        public Employee(Name name, in DateTime birthday, Email email) : this(name.Firstname, name.Lastname, birthday, email.Value)
         {
         }
 
@@ -44,12 +48,7 @@ namespace BirthdayGreetings
 
         protected bool Equals(Employee other)
         {
-            return Email == other.Email && Equals(Name, other.Name) && DateOfBirth.Equals(other.DateOfBirth);
-        }
-
-        public override string ToString()
-        {
-            return $"{nameof(Email)}: {Email}, {nameof(Name)}: {Name}, {nameof(DateOfBirth)}: {DateOfBirth}";
+            return Equals(Email, other.Email) && Equals(Name, other.Name) && DateOfBirth.Equals(other.DateOfBirth);
         }
 
         public override bool Equals(object obj)
@@ -63,6 +62,11 @@ namespace BirthdayGreetings
         public override int GetHashCode()
         {
             return HashCode.Combine(Email, Name, DateOfBirth);
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(Email)}: {Email}, {nameof(Name)}: {Name}, {nameof(DateOfBirth)}: {DateOfBirth}";
         }
     }
 }
