@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using BirthdayGreetings.Tests.Helpers;
@@ -6,28 +7,24 @@ using Xunit;
 
 namespace BirthdayGreetings.Tests
 {
-    public class BirthdaysMessagesFromFileTests
+    public class BirthdaysMessagesFromFileTestsRepositories : IEnumerable<object[]>
     {
-
-        [Fact]
-        public void CanCreate_AListOfBirthdaysMessages_FromFile()
+        public IEnumerator<object[]> GetEnumerator()
         {
-            string filename = @"Resources\employees.txt";
-            List<BirthdayMessage> birthdayMessages = BirthdayMessages.FromCsvFile(filename, TestEmployees.John.DateOfBirth);
-
-            List<BirthdayMessage> expectedMessages = new List<BirthdayMessage>
-            {
-                new BirthdayMessage(TestEmployees.John.Name)
-            };
-
-            Assert.Equal(expectedMessages, birthdayMessages);
+            yield return new object[] { new CsvEmployeesRepository(@"Resources\employees.txt"), };
+            yield return new object[] { new SqlLiteEmployeesRepository(@"Resources\employees.db"), };
         }
 
-        [Fact]
-        public void CanCreate_AListOfBirthdaysMessages_SqlLiteDb()
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public class BirthdaysMessagesFromFileTests
+    {
+        [Theory]
+        [ClassData(typeof(BirthdaysMessagesFromFileTestsRepositories))]
+        public void CanCreate_AListOfBirthdaysMessages_FromASource(IEmployeesRepository repository)
         {
-            string filename = @"Resources\employees.db";
-            List<BirthdayMessage> birthdayMessages = BirthdayMessages.FromSqlLiteDb(filename, TestEmployees.John.DateOfBirth);
+            List<BirthdayMessage> birthdayMessages = new BirthdayMessages(repository).CreateMessages(TestEmployees.John.DateOfBirth);
 
             List<BirthdayMessage> expectedMessages = new List<BirthdayMessage>
             {

@@ -31,30 +31,15 @@ namespace BirthdayGreetings
             return birthdayMessages.CreateMessages(today);
         }
 
-        public List<BirthdayMessage> CreateMessages(DateTime today)
-        {
-            List<Employee> employees = _employeesRepository.ReadAll();
-            return BirthdayMessages.Of(employees, today);
-        }
-
         public BirthdayMessages(IEmployeesRepository employeesRepository)
         {
             _employeesRepository = employeesRepository;
         }
-    }
 
-    public class CsvEmployeesRepository : IEmployeesRepository
-    {
-        private readonly string _filename;
-
-        public CsvEmployeesRepository(string filename)
+        public List<BirthdayMessage> CreateMessages(DateTime today)
         {
-            _filename = filename;
-        }
-
-        public List<Employee> ReadAll()
-        {
-            return EmployeesCsvFileLoader.Load(_filename);
+            List<Employee> employees = _employeesRepository.ReadAll();
+            return BirthdayMessages.Of(employees, today);
         }
     }
 }
