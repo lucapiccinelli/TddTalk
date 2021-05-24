@@ -12,7 +12,9 @@ namespace BirthdayGreetings.Doors.Repositories.Entity
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase(databaseName: "Test");
+            optionsBuilder.UseMySQL("server=localhost;port=3306;Database=Test;Uid=root;Pwd=sa;");
         }
+
+        public void Migrate() => Database.Migrate();
     }
 }

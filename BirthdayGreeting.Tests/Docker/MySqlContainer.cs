@@ -23,6 +23,7 @@ namespace BirthdayGreetings.Tests.Docker
             DockerRunParams parameters = new DockerRunParams()
                 .AddParam($"-p {_externalPort}:3306")
                 .AddParam($"--env MYSQL_ROOT_PASSWORD=sa")
+                .AddParam($"--env MYSQL_DATABASE=Test")
                 .AddParam("-d")
                 .AddParam($"mysql");
             _container = new DockerContainer(parameters);

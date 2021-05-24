@@ -63,6 +63,7 @@ namespace BirthdayGreetings.Tests.Integration
         private static void PopulateDb(Action test)
         {
             BirthdayDbContext _dbContext = new BirthdayDbContext();
+            _dbContext.Migrate();
             _dbContext.Add(new BirthdayMessageEntity
             {
                 Firstname = TestEmployees.John.Name.Firstname,

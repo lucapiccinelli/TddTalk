@@ -17,7 +17,8 @@ namespace BirthdayGreetings.Tests.Docker
             Parameters = parameters;
             _containerId = string.Empty;
             _dockerExecutable = GetPath("docker.exe");
-            _processInfo = new ProcessStartInfo(_dockerExecutable, parameters.Get())
+            var arguments = parameters.Get();
+            _processInfo = new ProcessStartInfo(_dockerExecutable, arguments)
             {
                 RedirectStandardOutput = true,
                 UseShellExecute = false,

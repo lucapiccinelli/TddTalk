@@ -11,7 +11,7 @@ namespace BirthdayGreetings.Doors.Repositories.Entity
     public class EfBirthdayMessagesRepository : IRepository<BirthdayMessage>
     {
         private readonly BirthdayDbContext _dbContext = new BirthdayDbContext();
-
+        
         public List<BirthdayMessage> ReadAll()
         {
             return _dbContext.BirthdayMessages
