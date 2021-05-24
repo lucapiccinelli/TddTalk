@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using BirthdayGreetings.Domain.Doors;
 using BirthdayGreetings.Domain.Model;
+using BirthdayGreetings.Doors.Repositories.Entity;
+using BirthdayGreetings.Doors.Repositories.Entity.Entities;
 using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 
@@ -13,33 +16,54 @@ namespace BirthdayGreetings.Tests.Integration
         [Fact]
         void CanReadMessagesFromDb()
         {
-            MySqlMessagesRepository repository = new MySqlMessagesRepository();
-
-            List<BirthdayMessage> expectedBirthdayMessages = new List<BirthdayMessage>
+            PopulateDb(() =>
             {
-                new BirthdayMessage(TestEmployees.John.Name),
-                new BirthdayMessage(TestEmployees.Mary.Name)
-            };
+                EfBirthdayMessagesRepository repository = new EfBirthdayMessagesRepository();
 
-            List<BirthdayMessage> actualBirthdayMessages = repository.ReadAll();
-            Assert.Equal(expectedBirthdayMessages, actualBirthdayMessages);
+                List<BirthdayMessage> expectedBirthdayMessages = new List<BirthdayMessage>
+                {
+                    new BirthdayMessage(TestEmployees.John.Name),
+                    new BirthdayMessage(TestEmployees.Mary.Name)
+                };
+
+                List<BirthdayMessage> actualBirthdayMessages = repository.ReadAll();
+                Assert.Equal(expectedBirthdayMessages, actualBirthdayMessages);
+            });
         }
-    }
-
-    public class MySqlMessagesRepository: IRepository<BirthdayMessage>
-    {
-        public List<BirthdayMessage> ReadAll()
+        
+        [Fact]
+        void CanSaveMessagesInDb()
         {
-            return new List<BirthdayMessage>
+            EfBirthdayMessagesRepository repository = new EfBirthdayMessagesRepository();
+            var expectedMessage = new BirthdayMessage(new Name("Foo", "Bar"));
+            repository.New(expectedMessage);
+
+            var newMessage = repository.ReadAll().First();
+
+            Assert.Equal(expectedMessage, newMessage);
+        }
+
+        private static void PopulateDb(Action test)
+        {
+            BirthdayDbContext _dbContext = new BirthdayDbContext();
+            _dbContext.Add(new BirthdayMessageEntity
             {
-                new BirthdayMessage(TestEmployees.John.Name),
-                new BirthdayMessage(TestEmployees.Mary.Name)
-            };
-        }
+                Firstname = TestEmployees.John.Name.Firstname,
+                Lastname = TestEmployees.John.Name.Lastname,
+            });
+            _dbContext.Add(new BirthdayMessageEntity
+            {
+                Firstname = TestEmployees.Mary.Name.Firstname,
+                Lastname = TestEmployees.Mary.Name.Lastname,
+            });
+            _dbContext.SaveChanges();
 
-        public void New(BirthdayMessage t)
-        {
-            throw new NotImplementedException();
+            test();
+
+            var allMessages = _dbContext.BirthdayMessages
+                .Select(entity => entity).ToList();
+            _dbContext.RemoveRange(allMessages);
+            _dbContext.SaveChanges();
         }
     }
 }

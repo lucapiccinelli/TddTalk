@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayGreetings.Doors.Repositories.Entity
 {
-    class BirthdayDbContext : DbContext
+    public class BirthdayDbContext : DbContext
     {
         public DbSet<BirthdayMessageEntity> BirthdayMessages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            optionsBuilder.UseInMemoryDatabase(databaseName: "Test");
         }
     }
 }

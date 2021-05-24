@@ -1,16 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BirthdayGreetings.Doors.Repositories.Entity.Entities
 {
-    class BirthdayMessageEntity
+    public class BirthdayMessageEntity
     {
         [Key]
-        private int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
-        private string Firstname { get; set; }
+        public string Firstname { get; set; }
 
         [Required]
-        private string Lastname { get; set; }
+        public string Lastname { get; set; }
     }
 }
