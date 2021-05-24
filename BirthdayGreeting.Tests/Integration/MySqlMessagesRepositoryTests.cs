@@ -6,12 +6,29 @@ using BirthdayGreetings.Domain.Doors;
 using BirthdayGreetings.Domain.Model;
 using BirthdayGreetings.Doors.Repositories.Entity;
 using BirthdayGreetings.Doors.Repositories.Entity.Entities;
+using BirthdayGreetings.Tests.Docker;
 using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 
 namespace BirthdayGreetings.Tests.Integration
 {
-    public class MySqlMessagesRepositoryTests
+    public class MySqlMessagesRepositoryTestsFixture : IDisposable
+    {
+        private readonly MySqlContainer _mySql;
+
+        public MySqlMessagesRepositoryTestsFixture()
+        {
+            _mySql = new MySqlContainer();
+            _mySql.Start();
+        }
+
+        public void Dispose()
+        {
+            _mySql.Stop();
+        }
+    }
+
+    public class MySqlMessagesRepositoryTests : IClassFixture<MySqlMessagesRepositoryTestsFixture>
     {
         [Fact]
         void CanReadMessagesFromDb()
