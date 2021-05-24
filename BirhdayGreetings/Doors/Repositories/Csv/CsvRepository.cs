@@ -2,20 +2,22 @@
 using BirthdayGreetings.Domain.Doors;
 using BirthdayGreetings.Domain.Model;
 
-namespace BirthdayGreetings.Doors.Repositories.SqlLite
+namespace BirthdayGreetings.Doors.Repositories.Csv
 {
-    public class SqlLiteEmployeesRepository : IEmployeesRepository
+    public class CsvRepository : IRepository<Employee>
     {
         private readonly string _filename;
 
-        public SqlLiteEmployeesRepository(string filename)
+        public CsvRepository(string filename)
         {
             _filename = filename;
         }
 
         public List<Employee> ReadAll()
         {
-            return EmployeesSqlLiteLoader.Load(_filename);
+            return EmployeesCsvFileLoader.Load(_filename);
         }
+
+        public void New(Employee t) {}
     }
 }

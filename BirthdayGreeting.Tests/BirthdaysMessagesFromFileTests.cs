@@ -2,6 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using BirthdayGreetings.Domain.Doors;
+using BirthdayGreetings.Domain.Model;
+using BirthdayGreetings.Domain.Usecases;
+using BirthdayGreetings.Doors.Repositories.Csv;
+using BirthdayGreetings.Doors.Repositories.SqlLite;
 using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 
@@ -11,8 +16,8 @@ namespace BirthdayGreetings.Tests
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { new CsvEmployeesRepository(@"Resources\employees.txt"), };
-            yield return new object[] { new SqlLiteEmployeesRepository(@"Resources\employees.db"), };
+            yield return new object[] { new CsvRepository(@"Resources\employees.txt"), };
+            yield return new object[] { new SqlLiteRepository(@"Resources\employees.db"), };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -22,9 +27,9 @@ namespace BirthdayGreetings.Tests
     {
         [Theory]
         [ClassData(typeof(BirthdaysMessagesFromFileTestsRepositories))]
-        public void CanCreate_AListOfBirthdaysMessages_FromASource(IEmployeesRepository repository)
+        public void CanCreate_AListOfBirthdaysMessages_FromASource(IRepository<Employee> repository)
         {
-            List<BirthdayMessage> birthdayMessages = new BirthdayMessagesService(repository).CreateMessages(TestEmployees.John.DateOfBirth);
+            List<BirthdayMessage> birthdayMessages = new BirthdayStoreService(repository).CreateMessages(TestEmployees.John.DateOfBirth);
 
             List<BirthdayMessage> expectedMessages = new List<BirthdayMessage>
             {

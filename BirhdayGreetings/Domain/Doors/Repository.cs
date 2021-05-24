@@ -3,8 +3,9 @@ using BirthdayGreetings.Domain.Model;
 
 namespace BirthdayGreetings.Domain.Doors
 {
-    public interface IEmployeesRepository
+    public interface IRepository<T>
     {
-        List<Employee> ReadAll();
+        List<T> ReadAll();
+        void New(T t);
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using BirthdayGreetings;
+using BirthdayGreetings.Domain;
+using BirthdayGreetings.Domain.Model;
 using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 
