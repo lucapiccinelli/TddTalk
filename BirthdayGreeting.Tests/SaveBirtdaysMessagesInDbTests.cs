@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BirthdayGreetings.Domain.Doors;
 using BirthdayGreetings.Domain.Model;
 using BirthdayGreetings.Domain.Usecases;
+using BirthdayGreetings.Doors.Repositories;
 using BirthdayGreetings.Tests.Helpers;
 using Moq;
 using Xunit;
@@ -23,7 +24,7 @@ namespace BirthdayGreetings.Tests
         [Fact]
         public void GIVEN_AListOfEmployees_FromACsvFile_ItSavesBirthdaysMessages()
         {
-            var service = new BirthdayStoreService(_employeesRepository.Object);
+            var service = new BirthdayStoreService(_employeesRepository.Object, new InMemoryBirthdayMessagesRepository());
             service.SaveMessages(TestEmployees.John.DateOfBirth);
 
             List<BirthdayMessage> expectedMessages = new List<BirthdayMessage>
@@ -38,7 +39,7 @@ namespace BirthdayGreetings.Tests
         [Fact]
         public void SavingAMessageASecondTime_Preserves_TheFirst()
         {
-            var service = new BirthdayStoreService(_employeesRepository.Object);
+            var service = new BirthdayStoreService(_employeesRepository.Object, new InMemoryBirthdayMessagesRepository());
             service.SaveMessages(TestEmployees.John.DateOfBirth);
             service.SaveMessages(new DateTime(2021, 5, 24));
 
