@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BirthdayGreetings.Domain.Model;
+using BirthdayGreetings.Doors.Repositories.SqlLite;
 using BirthdayGreetings.Tests.Helpers;
 using Xunit;
 

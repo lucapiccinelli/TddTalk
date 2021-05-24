@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using BirthdayGreetings.Domain.Model;
 using BirthdayGreetings.Exceptions;
 
-namespace BirthdayGreetings
+namespace BirthdayGreetings.Doors.Repositories.Csv
 {
     public static class EmployeesCsvFileLoader
     {

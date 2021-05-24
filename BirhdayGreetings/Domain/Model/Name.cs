@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BirthdayGreetings
+namespace BirthdayGreetings.Domain.Model
 {
     public class Name
     {

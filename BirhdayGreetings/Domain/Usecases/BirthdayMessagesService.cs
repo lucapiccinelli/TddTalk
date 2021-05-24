@@ -1,37 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using BirthdayGreetings.Domain.Doors;
+using BirthdayGreetings.Domain.Model;
+using BirthdayGreetings.Doors.Repositories.Csv;
+using BirthdayGreetings.Doors.Repositories.SqlLite;
 
-namespace BirthdayGreetings
+namespace BirthdayGreetings.Domain.Usecases
 {
-    public class BirthdayMessages
+    public class BirthdayMessagesService
     {
         private readonly IEmployeesRepository _employeesRepository;
-
-        public static List<BirthdayMessage> Of(List<Employee> employees, DateTime today) =>
-            employees
-                .Where(employee => employee.IsBirthday(today))
-                .Select(employee => new BirthdayMessage(employee.Name))
-                .ToList();
-
-        public static List<BirthdayMessage> Of(List<Employee> employees) => Of(employees, DateTime.Now);
-
         public static List<BirthdayMessage> FromCsvFile(string filename, DateTime today)
         {
-
             IEmployeesRepository employeesRepository = new CsvEmployeesRepository(filename);
-            var birthdayMessages = new BirthdayMessages(employeesRepository);
+            var birthdayMessages = new BirthdayMessagesService(employeesRepository);
             return birthdayMessages.CreateMessages(today);
         }
 
         public static List<BirthdayMessage> FromSqlLiteDb(string filename, DateTime today)
         {
             IEmployeesRepository employeesRepository = new SqlLiteEmployeesRepository(filename);
-            var birthdayMessages = new BirthdayMessages(employeesRepository);
+            var birthdayMessages = new BirthdayMessagesService(employeesRepository);
             return birthdayMessages.CreateMessages(today);
         }
 
-        public BirthdayMessages(IEmployeesRepository employeesRepository)
+        public BirthdayMessagesService(IEmployeesRepository employeesRepository)
         {
             _employeesRepository = employeesRepository;
         }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
+using BirthdayGreetings.Domain.Model;
 
-namespace BirthdayGreetings
+namespace BirthdayGreetings.Doors.Repositories.SqlLite
 {
     public static class EmployeesSqlLiteLoader
     {

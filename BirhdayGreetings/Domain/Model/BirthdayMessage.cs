@@ -1,4 +1,4 @@
-﻿namespace BirthdayGreetings
+﻿namespace BirthdayGreetings.Domain.Model
 {
     public class BirthdayMessage
     {

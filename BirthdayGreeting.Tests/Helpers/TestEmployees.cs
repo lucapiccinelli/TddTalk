@@ -1,4 +1,5 @@
 ﻿using System;
+using BirthdayGreetings.Domain.Model;
 
 namespace BirthdayGreetings.Tests.Helpers
 {

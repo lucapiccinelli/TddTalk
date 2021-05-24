@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BirthdayGreetings.Domain.Model;
+using BirthdayGreetings.Doors.Repositories.Csv;
 using BirthdayGreetings.Exceptions;
 using BirthdayGreetings.Tests.Helpers;
 using Xunit;

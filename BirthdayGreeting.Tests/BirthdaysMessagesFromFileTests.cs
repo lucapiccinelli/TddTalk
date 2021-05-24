@@ -24,7 +24,7 @@ namespace BirthdayGreetings.Tests
         [ClassData(typeof(BirthdaysMessagesFromFileTestsRepositories))]
         public void CanCreate_AListOfBirthdaysMessages_FromASource(IEmployeesRepository repository)
         {
-            List<BirthdayMessage> birthdayMessages = new BirthdayMessages(repository).CreateMessages(TestEmployees.John.DateOfBirth);
+            List<BirthdayMessage> birthdayMessages = new BirthdayMessagesService(repository).CreateMessages(TestEmployees.John.DateOfBirth);
 
             List<BirthdayMessage> expectedMessages = new List<BirthdayMessage>
             {

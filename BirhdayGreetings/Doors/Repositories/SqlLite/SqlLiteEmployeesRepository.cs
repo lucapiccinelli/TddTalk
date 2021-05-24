@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using BirthdayGreetings.Domain.Doors;
+using BirthdayGreetings.Domain.Model;
 
-namespace BirthdayGreetings
+namespace BirthdayGreetings.Doors.Repositories.SqlLite
 {
     public class SqlLiteEmployeesRepository : IEmployeesRepository
     {

@@ -1,8 +1,9 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using BirthdayGreetings.Domain.Model;
 
-namespace BirthdayGreetings
+namespace BirthdayGreetings.Doors.Repositories.Csv
 {
     static public class EmployeesLineParser
     {
