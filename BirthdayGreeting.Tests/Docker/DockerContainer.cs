@@ -60,10 +60,10 @@ namespace BirthdayGreetings.Tests.Docker
                 Thread.Sleep(10);
             }
             
-            string output = process?.StandardOutput.ReadToEnd();
-            output += process?.StandardError.ReadToEnd();
+            StringBuilder output = new StringBuilder(process?.StandardOutput.ReadToEnd());
+            output.Append(process?.StandardError.ReadToEnd());
             process?.WaitForExit();
-            return output;
+            return output.ToString();
         }
 
         private string GetPath(string executableName) =>
@@ -84,11 +84,9 @@ namespace BirthdayGreetings.Tests.Docker
             }
         }
 
-        private bool ContainsTimes(string logValue, int times)
-        {
-            string[] lines = Log().Split('\n');
-            var count = lines.Count(line => line.Contains(logValue));
-            return count == times;
-        }
+        private bool ContainsTimes(string logValue, int times) => 
+            Log()
+                .Split('\n')
+                .Count(line => line.Contains(logValue)) == times;
     }
 }
