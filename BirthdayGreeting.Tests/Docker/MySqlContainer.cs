@@ -9,19 +9,15 @@ namespace BirthdayGreetings.Tests.Docker
 {
     class MySqlContainer
     {
-        private readonly string _currentDirectory;
-        private int _externalPort;
-        private DockerContainer _container;
+        private readonly DockerContainer _container;
+        private const string MySqlStartedString = "/usr/sbin/mysqld: ready for connections";
 
         public MySqlContainer()
         {
-            _currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "./";
-            var logFilename = $"mySql.log";
-            _externalPort = 3306;
+            var externalPort = 3306;
 
-            string version = "0.0.21-SNAPSHOT";
             DockerRunParams parameters = new DockerRunParams()
-                .AddParam($"-p {_externalPort}:3306")
+                .AddParam($"-p {externalPort}:3306")
                 .AddParam($"--env MYSQL_ROOT_PASSWORD=sa")
                 .AddParam($"--env MYSQL_DATABASE=Test")
                 .AddParam("-d")
@@ -32,7 +28,7 @@ namespace BirthdayGreetings.Tests.Docker
         public void Start()
         {
             _container.Run();
-            Thread.Sleep(30000);
+            _container.WaitForLog(MySqlStartedString, times: 2);
         }
 
         public void Stop()

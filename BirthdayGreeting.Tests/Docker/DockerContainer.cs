@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace BirthdayGreetings.Tests.Docker
 {
@@ -43,11 +45,50 @@ namespace BirthdayGreetings.Tests.Docker
             Process.Start(info)?.WaitForExit();
         }
 
+        public string Log()
+        {
+            ProcessStartInfo info = new ProcessStartInfo(_dockerExecutable, $"logs {_containerId}")
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+            var process = Process.Start(info);
+            while (!process?.HasExited ?? false)
+            {
+                Thread.Sleep(10);
+            }
+            
+            string output = process?.StandardOutput.ReadToEnd();
+            output += process?.StandardError.ReadToEnd();
+            process?.WaitForExit();
+            return output;
+        }
+
         private string GetPath(string executableName) =>
             Environment.GetEnvironmentVariable("PATH")
                 ?.Split(';')
                 .Select(x => Path.Combine(x, executableName))
                 .FirstOrDefault(File.Exists)
             ?? string.Empty;
+
+        public void WaitForLog(string logValue, int times = 1, long timeout = 60000)
+        {
+            var totalSleep = 0;
+            var attempRetrySleep = 100;
+            while (!ContainsTimes(logValue, times) || totalSleep > timeout)
+            {
+                Thread.Sleep(attempRetrySleep);
+                totalSleep += attempRetrySleep;
+            }
+        }
+
+        private bool ContainsTimes(string logValue, int times)
+        {
+            string[] lines = Log().Split('\n');
+            var count = lines.Count(line => line.Contains(logValue));
+            return count == times;
+        }
     }
 }
