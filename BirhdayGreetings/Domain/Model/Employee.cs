@@ -5,13 +5,13 @@ namespace BirthdayGreetings.Domain.Model
     public class Employee
     {
         private readonly DateTime _leapYearDateOfBirth;
-        public Email Email { get; }
+        public EmailAddress EmailAddress { get; }
         public Name Name { get; }
         public DateTime DateOfBirth { get; }
 
         public Employee(string firstname, string lastname, DateTime dateOfBirth, string email)
         {
-            Email = Email.Of(email);
+            EmailAddress = EmailAddress.Of(email);
             Name = new Name(firstname, lastname);
             DateOfBirth = dateOfBirth;
             _leapYearDateOfBirth = dateOfBirth;
@@ -27,7 +27,7 @@ namespace BirthdayGreetings.Domain.Model
         {
         }
 
-        public Employee(Name name, in DateTime birthday, Email email) : this(name.Firstname, name.Lastname, birthday, email.Value)
+        public Employee(Name name, in DateTime birthday, EmailAddress emailAddress) : this(name.Firstname, name.Lastname, birthday, emailAddress.Value)
         {
         }
 
@@ -48,7 +48,7 @@ namespace BirthdayGreetings.Domain.Model
 
         protected bool Equals(Employee other)
         {
-            return Equals(Email, other.Email) && Equals(Name, other.Name) && DateOfBirth.Equals(other.DateOfBirth);
+            return Equals(EmailAddress, other.EmailAddress) && Equals(Name, other.Name) && DateOfBirth.Equals(other.DateOfBirth);
         }
 
         public override bool Equals(object obj)
@@ -61,12 +61,12 @@ namespace BirthdayGreetings.Domain.Model
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Email, Name, DateOfBirth);
+            return HashCode.Combine(EmailAddress, Name, DateOfBirth);
         }
 
         public override string ToString()
         {
-            return $"{nameof(Email)}: {Email}, {nameof(Name)}: {Name}, {nameof(DateOfBirth)}: {DateOfBirth}";
+            return $"{nameof(EmailAddress)}: {EmailAddress}, {nameof(Name)}: {Name}, {nameof(DateOfBirth)}: {DateOfBirth}";
         }
     }
 }

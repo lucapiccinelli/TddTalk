@@ -16,7 +16,7 @@ namespace BirthdayGreetings.Tests.Helpers
 
         public static Employee WasBorn(this Employee employee, DateTime birthday)
         {
-            return new Employee(employee.Name, birthday, employee.Email);
+            return new Employee(employee.Name, birthday, employee.EmailAddress);
         }
     }
 }

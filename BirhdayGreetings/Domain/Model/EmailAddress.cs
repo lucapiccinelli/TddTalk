@@ -2,21 +2,21 @@
 
 namespace BirthdayGreetings.Domain.Model
 {
-    public class Email
+    public class EmailAddress
     {
-        public static Email Of(string value)
+        public static EmailAddress Of(string value)
         {
-            return new Email(value);
+            return new EmailAddress(value);
         }
 
         public String Value { get; }
 
-        private Email(string value)
+        private EmailAddress(string value)
         {
             Value = value;
         }
 
-        protected bool Equals(Email other)
+        protected bool Equals(EmailAddress other)
         {
             return Value == other.Value;
         }
@@ -31,7 +31,7 @@ namespace BirthdayGreetings.Domain.Model
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Email) obj);
+            return Equals((EmailAddress) obj);
         }
 
         public override int GetHashCode()
