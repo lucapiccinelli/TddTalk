@@ -9,7 +9,7 @@ using BirthdayGreetings.Doors.Repositories.SqlLite;
 
 namespace BirthdayGreetings.Domain
 {
-    public static class BirthdayMessages
+    public static class Birthdays
     {
         public static List<BirthdayMessage> FromCsvFile(string filename, DateTime today)
         {
@@ -26,9 +26,12 @@ namespace BirthdayGreetings.Domain
         }
 
         public static List<BirthdayMessage> Of(List<Employee> employees, DateTime today) =>
+            Of(employees, today, employee => new BirthdayMessage(employee.Name));
+
+        public static List<T> Of<T>(List<Employee> employees, DateTime today, Func<Employee, T> selectorFunction) =>
             employees
                 .Where(employee => employee.IsBirthday(today))
-                .Select(employee => new BirthdayMessage(employee.Name))
+                .Select(selectorFunction)
                 .ToList();
         public static List<BirthdayMessage> Of(List<Employee> employees) => Of(employees, DateTime.Now);
     }

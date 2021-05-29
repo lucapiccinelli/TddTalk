@@ -22,7 +22,7 @@ namespace BirthdayGreetings.Tests
 
             Mock<IEmailSender> serviceSpy = new Mock<IEmailSender>();
 
-            new GmailService(credentials, serviceSpy.Object).Send(email, EmailAddress.Of(fromEmailAddress));
+            new GmailBirthdaySender(EmailAddress.Of(fromEmailAddress), credentials, serviceSpy.Object).Send(email);
 
             var expectedConfiguration = new EmailServiceConfiguration
             {

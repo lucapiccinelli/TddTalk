@@ -28,7 +28,7 @@ namespace BirthdayGreetings.Tests
                 new BirthdayMessage(john.Name)
             };
 
-            Assert.Equal(expectedMessages, BirthdayMessages.Of(employees, today));
+            Assert.Equal(expectedMessages, Birthdays.Of(employees, today));
         }
 
     }

@@ -26,7 +26,7 @@ namespace BirthdayGreetings.Domain.Usecases
         public List<BirthdayMessage> CreateMessages(DateTime today)
         {
             List<Employee> employees = _employeesRepository.ReadAll();
-            return BirthdayMessages.Of(employees, today);
+            return Birthdays.Of(employees, today);
         }
 
         public void SaveMessages(DateTime today)

@@ -3,21 +3,23 @@ using BirthdayGreetings.Domain.Model;
 
 namespace BirthdayGreetings.Doors.Email.Gmail
 {
-    public class GmailService
+    public class GmailBirthdaySender : IBirthdaySender
     {
+        private readonly EmailAddress _from;
         private readonly Credentials _credentials;
         private readonly IEmailSender _emailSender;
 
-        public GmailService(Credentials credentials, IEmailSender emailSender)
+        public GmailBirthdaySender(EmailAddress from, Credentials credentials, IEmailSender emailSender)
         {
+            _from = from;
             _credentials = credentials;
             _emailSender = emailSender;
         }
-        public GmailService(Credentials credentials) : this(credentials, new EmailSender())
+        public GmailBirthdaySender(EmailAddress from, Credentials credentials) : this(from, credentials, new EmailSender())
         {
         }
 
-        public void Send(BirthdayEmail emailMessage, EmailAddress from)
+        public void Send(BirthdayEmail emailMessage)
         {
             var configuration = new EmailServiceConfiguration
             {
@@ -26,7 +28,7 @@ namespace BirthdayGreetings.Doors.Email.Gmail
                 Smtp = "smtp.gmail.com",
                 Ssl = true
             };
-            _emailSender.Send(configuration, from.Value, emailMessage.Recipient.Value, emailMessage.Message.ToString());
+            _emailSender.Send(configuration, _from.Value, emailMessage.Recipient.Value, emailMessage.Message.ToString());
         }
     }
 }
