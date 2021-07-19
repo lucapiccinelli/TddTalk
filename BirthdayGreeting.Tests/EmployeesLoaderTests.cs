@@ -32,6 +32,7 @@ namespace BirthdayGreetings.Tests
             var exception =  Assert.Throws<BadFormatException>(() => EmployeesCsvFileLoader.Load(filename));
             Assert.Equal(2, exception.Errors.Count);
             Assert.Equal(1, exception.Errors[0].LineNumber);
+            Assert.Equal(2, exception.Errors[1].LineNumber);
         }
     }
 }
